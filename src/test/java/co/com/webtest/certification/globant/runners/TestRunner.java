@@ -8,6 +8,7 @@ import org.junit.runner.*;
 @CucumberOptions(
         plugin = {"pretty"},
         features = "src/test/resources/features/",
+        tags = "@UpdateUser",
         glue = "co.com.webtest.certification.globant.stepsdefinitions"
 )
 public class TestRunner {

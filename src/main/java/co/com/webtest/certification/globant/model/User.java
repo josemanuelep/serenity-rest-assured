@@ -11,7 +11,7 @@ public class User {
         this.job = job;
     }
 
-    public User(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -19,9 +19,10 @@ Feature: Test cases for creating, editing, deleting and filtering users
       | <name> | <job> |
     Then The status code of the response should be 201
     Examples:
-      | name  | job         |
-      | carl  | dev         |
-      | josep | iu designer |
+      | name    | job           |
+      | carl    | dev           |
+      | josep   | iu designer   |
+      | raphael | tech director |
 
   @UpdateUser
   Scenario Outline: Update an existing user
@@ -30,7 +31,12 @@ Feature: Test cases for creating, editing, deleting and filtering users
       | <name> | <job> |
     Then The status code of the response should be 201
     Examples:
-      | id | name     | job           |
-      | 1  | morpheus | zion resident |
-      | 2  | james    | nba player    |
+      | id | name     | job                |
+      | 1  | morpheus | zion resident      |
+      | 2  | james    | nba player         |
+      | 2  | james    | Globant salesforce |
+
+
+
+
 

@@ -1,4 +1,4 @@
-package co.com.webtest.certification.globant.model;
+package model;
 
 public class User {
 

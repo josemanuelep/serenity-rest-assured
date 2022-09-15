@@ -1,4 +1,4 @@
-package co.com.webtest.certification.globant.tasks.users;
+package tasks.users;
 
 import net.serenitybdd.screenplay.*;
 import static net.serenitybdd.screenplay.Tasks.instrumented;

@@ -1,49 +1,53 @@
-package co.com.webtest.certification.globant.stepsdefinitions;
+package stepsdefinitions;
 
 
-import co.com.webtest.certification.globant.model.*;
-import co.com.webtest.certification.globant.tasks.users.*;
 import io.cucumber.java.*;
 import io.cucumber.java.en.*;
-import net.serenitybdd.screenplay.*;
+import model.*;
+import net.serenitybdd.screenplay.actors.*;
+import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
+import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import net.serenitybdd.screenplay.rest.abilities.*;
 import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
 import net.thucydides.core.util.*;
 import org.hamcrest.*;
+import tasks.users.*;
 
 import java.util.*;
 
-public class GeneralSteps {
+public class UserSteps {
 
     private String theRestApiBaseUrl;
     private EnvironmentVariables environmentVariables;
-    private Actor sam;
 
     @DataTableType
     public User authorEntry(Map<String, String> entry) {
         return new User(entry.get("name"), entry.get("job"));
     }
 
+    @Before(order = 1)
+    public void setTheStage() {
+        OnStage.setTheStage(new OnlineCast());
+    }
+
     @Before
     public void configureBaseUrl() {
         theRestApiBaseUrl = environmentVariables.optionalProperty("restapi.baseurl")
                 .orElse("https://reqres.in/api");
-
-        sam = Actor.named("Sam the supervisor").whoCan(CallAnApi.at(theRestApiBaseUrl));
+        theActorCalled("Sam").whoCan(CallAnApi.at(theRestApiBaseUrl));
     }
 
     @Given("Sam the supervisor fetches all users from page {int}")
     public void sam_the_supervisor_fetches_all_users(int page) {
-        sam.attemptsTo(
+        theActorInTheSpotlight().attemptsTo(
                 Find.fromPage(page)
         );
-        sam.remember("page", page);
+        theActorInTheSpotlight().remember("page", page);
     }
 
     @Then("User details should be correct")
     public void user_details_should_be_correct() {
-        int page = sam.recall("page");
-        sam.should(
+        theActorInTheSpotlight().should(
                 seeThatResponse("User details should be correct",
                         response -> response
                                 .body("data", Matchers.notNullValue())
@@ -53,12 +57,12 @@ public class GeneralSteps {
 
     @Given("Sam create the given user")
     public void sam_create_the_given_user(User user) {
-        sam.attemptsTo(Create.withGivenUser(user));
+        theActorInTheSpotlight().attemptsTo(Create.withGivenUser(user));
     }
 
     @Then("The status code of the response should be {int}")
     public void the_status_code_of_the_response_should_be(int status) {
-        sam.should(
+        theActorInTheSpotlight().should(
                 seeThatResponse("The response was correct",
                         response -> response.statusCode(status))
         );
@@ -67,7 +71,7 @@ public class GeneralSteps {
     @Given("Sam update an existing user with {int}")
     public void sam_update_an_existing_user(int id, User user) {
         user.setId(id);
-        sam.attemptsTo(Update.withGivenUser(user));
+        theActorInTheSpotlight().attemptsTo(Update.withGivenUser(user));
 
     }
 

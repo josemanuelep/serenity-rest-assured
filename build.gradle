@@ -63,7 +63,7 @@ test {
         failOnPassedAfterRetry = false
     }
 
-    maxParallelForks = 2
+    maxParallelForks = 3
 }
 
 gradle.startParameter.continueOnFailure = true

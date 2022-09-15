@@ -60,8 +60,8 @@ jobs:
      - run: pwd
      - run: ls
         
-     #- name: Step 3 - Use the Upload Artifact GitHub Action
-      # uses: actions/upload-artifact@v2   
-       #with: 
-        # name: test-report
-         #path: downloads
+     - name: Step 3 - Use the Upload Artifact GitHub Action
+       uses: actions/upload-artifact@v2   
+       with: 
+         name: test-report
+         path: target

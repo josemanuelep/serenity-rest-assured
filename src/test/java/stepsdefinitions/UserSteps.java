@@ -25,13 +25,10 @@ public class UserSteps {
         return new User(entry.get("name"), entry.get("job"));
     }
 
-    @Before(order = 1)
-    public void setTheStage() {
-        OnStage.setTheStage(new OnlineCast());
-    }
 
     @Before
     public void configureBaseUrl() {
+        OnStage.setTheStage(new OnlineCast());
         theRestApiBaseUrl = environmentVariables.optionalProperty("restapi.baseurl")
                 .orElse("https://reqres.in/api");
         theActorCalled("Sam").whoCan(CallAnApi.at(theRestApiBaseUrl));

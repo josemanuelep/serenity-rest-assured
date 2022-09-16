@@ -1,7 +1,10 @@
 package tasks.login;
+
 import model.*;
+import net.serenitybdd.rest.*;
 import net.serenitybdd.screenplay.*;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
+import net.serenitybdd.screenplay.ensure.Ensure;
 import net.serenitybdd.screenplay.rest.interactions.*;
 
 public class Login implements Task {
@@ -15,6 +18,7 @@ public class Login implements Task {
     public static Login withGivenUser(LoginData user) {
         return instrumented(Login.class, user);
     }
+
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
@@ -25,6 +29,6 @@ public class Login implements Task {
                                         "}")
                                 .contentType("application/json"))
         );
-
+        actor.attemptsTo(Ensure.that(SerenityRest.lastResponse().getBody().prettyPrint()).isNotEmpty());
     }
 }

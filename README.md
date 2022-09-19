@@ -1,5 +1,7 @@
 # Serenity-rest-assured demo 
 
+This is a little demo of how to automated api test runnnig in a pipeline with gradle and serenity bdd
+
 <table>
     <tr>
         <th>Root Project</th>
